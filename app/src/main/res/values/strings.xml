@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lix-Hub RE</string>
+    <string name="common_word_google">Google</string>
+    <string name="login_message">Create an account to start manage your business !</string>
+    <string name="common_word_accounts">Accounts</string>
+    <string name="exit">Exit</string>
+    <string name="exit_message">Do you really want to exit the app?</string>
+    <string name="common_word_cancel" translatable="true">Cancel</string>
+</resources>

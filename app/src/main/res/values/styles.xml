@@ -1,0 +1,22 @@
+<resources>
+  <style name="Theme.LixHubRE.CircleImageView">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">50%</item>
+  </style>
+
+  <style name="Widget.LixHubRE.CollapsingToolbar" parent="Widget.Material3.CollapsingToolbar.Large">
+    <item name="collapsedTitleTextAppearance">@style/TextAppearance.LixHubRE.CollapsingToolbar.Collapsed</item>
+    <item name="expandedTitleTextAppearance">@style/TextAppearance.LixHubRE.CollapsingToolbar.Expanded</item>
+    <item name="titleCollapseMode">fade</item>
+  </style>
+
+  <style name="TextAppearance.LixHubRE.CollapsingToolbar.Collapsed" parent="TextAppearance.Material3.TitleLarge">
+    <item name="fontFamily">@font/bold</item>
+    <item name="android:fontFamily">@font/bold</item>
+  </style>
+
+  <style name="TextAppearance.LixHubRE.CollapsingToolbar.Expanded" parent="TextAppearance.Material3.HeadlineMedium">
+    <item name="fontFamily">@font/semi_bold</item>
+    <item name="android:fontFamily">@font/semi_bold</item>
+  </style>
+</resources>

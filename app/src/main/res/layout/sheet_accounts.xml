@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+  <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+    android:id="@+id/bottom_sheet_drag_handle_view2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp" />
+  <LinearLayout
+    android:id="@+id/linear3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="15dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="15dp"
+      android:text="@string/common_word_accounts"
+      android:textSize="25sp"
+      android:focusable="false" />
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/accounts_list"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:padding="6dp"
+      android:transitionGroup="true"
+      android:overScrollMode="never" />
+  </LinearLayout>
+</LinearLayout>
