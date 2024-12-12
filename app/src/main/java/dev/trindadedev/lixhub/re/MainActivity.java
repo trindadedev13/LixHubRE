@@ -15,16 +15,16 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.button.MaterialButton;
 import dev.trindadedev.lixhub.re.dialog.accounts.AccountsSheet;
-import dev.trindadedev.lixhub.re.databinding.MainBinding;
+import dev.trindadedev.lixhub.re.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-  private MainBinding binding;
+  private ActivityMainBinding binding;
 
   @Override
   protected void onCreate(Bundle _savedInstanceState) {
     super.onCreate(_savedInstanceState);
-    binding = MainBinding.inflate(getLayoutInflater());
+    binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
     
     setSupportActionBar(binding.toolbar);
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     getSupportActionBar().setHomeButtonEnabled(true);
     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     getSupportActionBar().setHomeButtonEnabled(false);
+    
     binding.toolbar.setNavigationOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
     binding.btnGoogleLogin.setOnClickListener(clickedView -> {
       var sheet = new AccountsSheet(this);
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
-  public void onPicked(
+  private void onPicked(
     @NonNull final String name,
     @NonNull final String email,
     @NonNull final String avatar,
