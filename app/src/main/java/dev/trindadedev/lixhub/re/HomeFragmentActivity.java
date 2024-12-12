@@ -26,7 +26,7 @@ public class HomeFragmentActivity extends Fragment {
     @Nullable ViewGroup container,
     @Nullable Bundle savedInstanceState
   ) {
-    binding = FragmentBinding.inflate(layoutInflater, container, false);
+    binding = FragmentHomeBinding.inflate(layoutInflater, container, false);
     return binding.getRoot();
   }
 }
