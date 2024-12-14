@@ -51,6 +51,7 @@ public class AccountsSheet extends BottomSheetDialog {
 
     setContentView(accountsLayout);
 
+    accountsList.post(() -> {
     fetchAccounts(new CredentialManagerCallback<List<Account>, GetCredentialException>() {
       @Override
       public void onResult(List<Account> result) {
@@ -66,6 +67,7 @@ public class AccountsSheet extends BottomSheetDialog {
         accountsAdapter.submitList(getDefaultAccounts());
       }
     });
+    }
   }
 
   private void initCredentialManager() {
