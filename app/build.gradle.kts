@@ -1,54 +1,67 @@
-
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+  alias(libs.plugins.android.app)
+  alias(libs.plugins.kotlin)
 }
 
 android {
-    namespace = "dev.trindadedev.lixhub.re"
-    compileSdk = 35
+  namespace = "dev.trindadedev.lixhub"
+  compileSdk = libs.versions.android.compileSdk.get().toInt()
+  
+  defaultConfig {
+    minSdk = libs.versions.android.minSdk.get().toInt()
+    targetSdk = libs.versions.android.targetSdk.get().toInt()
+    applicationId = "dev.trindadedev.lixhub"
+    versionCode = 1
+    versionName = "1.0"
     
-    defaultConfig {
-        applicationId = "dev.trindadedev.lixhub.re"
-        minSdk = 21
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
-        
-        vectorDrawables { 
-            useSupportLibrary = true
-        }
-    }
+    vectorDrawables.useSupportLibrary = true
+  }
     
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.toVersion(libs.versions.android.jvm.get().toInt())
+    targetCompatibility = JavaVersion.toVersion(libs.versions.android.jvm.get().toInt())
+  }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
+  signingConfigs {
+    create("release") {
+      // temporary keystore
+      storeFile = file(layout.buildDirectory.dir("../release_key.jks"))
+      storePassword = "release_temp"
+      keyAlias = "release_temp"
+      keyPassword = "release_temp"
     }
-
-    buildFeatures {
-        viewBinding = true
-        
+    getByName("debug") {
+      storeFile = file(layout.buildDirectory.dir("../testkey.keystore"))
+      storePassword = "testkey"
+      keyAlias = "testkey"
+      keyPassword = "testkey"
     }
+  }
     
+  buildTypes {
+    release {
+      isMinifyEnabled = true
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+      signingConfig = signingConfigs.getByName("release")
+    }
+  }
+
+  buildFeatures {
+    viewBinding = true
+  }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "17"
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+  compilerOptions {
+    jvmTarget = JvmTarget.JVM_17
+  }
 }
 
 dependencies {
-  implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-  implementation("com.google.android.material:material:1.9.0")
-  implementation("androidx.appcompat:appcompat:1.6.1")
-    
-  implementation("com.github.bumptech.glide:glide:4.16.0")
-	implementation("androidx.credentials:credentials:1.5.0-alpha05")
-	implementation("androidx.credentials:credentials-play-services-auth:1.5.0-alpha05")
+  implementation(libs.google.material)
+  implementation(libs.androidx.appcompat)
+  implementation(libs.bumptech.glide)
+	implementation(libs.androidx.credentials)
+	implementation(libs.androidx.credentials.play.services.auth)
 }

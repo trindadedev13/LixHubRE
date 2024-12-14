@@ -1,0 +1,29 @@
+[versions]
+android = "8.7.3"
+android-jvm = "17"
+android-compileSdk = "35"
+android-targetSdk = "35"
+android-minSdk = "26"
+
+kotlin = "2.1.0"
+google-material = "1.12.0"
+
+androidx-appcompat = "1.7.0"
+androidx-credentials = "1.5.0-beta01"
+
+bumptech-glide = "4.16.0"
+
+[plugins]
+android-lib = { id = "com.android.library", version.ref = "android" }
+android-app = { id = "com.android.application", version.ref = "android" } 
+
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+[libraries]
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
+androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "androidx-credentials" }
+androidx-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "androidx-credentials" }
+
+google-material = { group = "com.google.android.material", name = "material", version.ref = "google-material" }
+bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "bumptech-glide" }
