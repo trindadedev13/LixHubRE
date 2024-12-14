@@ -69,14 +69,14 @@ public class AccountsSheet extends BottomSheetDialog {
     credentialManager = CredentialManager.create(context);
 
     Bundle requestData = new Bundle();
-    requestData.putString("key", "google_id");
+    requestData.putString("key", "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");
 
     Bundle candidateQueryData = new Bundle();
     candidateQueryData.putString("queryKey", "value");
 
     googleIdOption =
         new GetCustomCredentialOption(
-            requestData, "google_id", candidateQueryData, false, false, new HashSet<>(), 0);
+            requestData, "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", candidateQueryData, false, false, new HashSet<>(), 0);
   }
 
   private void fetchAccounts(
