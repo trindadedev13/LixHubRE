@@ -51,18 +51,21 @@ public class AccountsSheet extends BottomSheetDialog {
 
     setContentView(accountsLayout);
 
-    fetchAccounts(
-        new CredentialManagerCallback<List<Account>, GetCredentialException>() {
-          @Override
-          public void onResult(List<Account> result) {
-            accountsAdapter.submitList(result);
-          }
+    fetchAccounts(new CredentialManagerCallback<List<Account>, GetCredentialException>() {
+      @Override
+      public void onResult(List<Account> result) {
+        if (result.isEmpty()) {
+          result = getDefaultAccounts();
+        }
+        accountsAdapter.submitList(result);
+      }
 
-          @Override
-          public void onError(GetCredentialException e) {
-            e.printStackTrace();
-          }
-        });
+      @Override
+      public void onError(GetCredentialException e) {
+        e.printStackTrace();
+        accountsAdapter.submitList(getDefaultAccounts());
+      }
+    });
   }
 
   private void initCredentialManager() {
@@ -74,44 +77,51 @@ public class AccountsSheet extends BottomSheetDialog {
     Bundle candidateQueryData = new Bundle();
     candidateQueryData.putString("queryKey", "value");
 
-    googleIdOption =
-        new GetCustomCredentialOption(
-            requestData, "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", candidateQueryData, false, false, new HashSet<>(), 0);
+    googleIdOption = new GetCustomCredentialOption(
+      requestData, 
+      "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", 
+      candidateQueryData, 
+      false, 
+      false, 
+      new HashSet<>(), 
+      0
+    );
   }
 
-  private void fetchAccounts(
-      CredentialManagerCallback<List<Account>, GetCredentialException> callback) {
-    GetCredentialRequest request =
-        new GetCredentialRequest.Builder().addCredentialOption(googleIdOption).build();
+  private void fetchAccounts(CredentialManagerCallback<List<Account>, GetCredentialException> callback) {
+    GetCredentialRequest request = new GetCredentialRequest.Builder()
+      .addCredentialOption(googleIdOption)
+      .build();
 
     credentialManager.getCredentialAsync(
-        context,
-        request,
-        new CancellationSignal(),
-        Executors.newSingleThreadExecutor(),
-        new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
-          @Override
-          public void onResult(GetCredentialResponse result) {
-            Credential credential = result.getCredential();
-            List<Account> accounts = new ArrayList<>();
+      context,
+      request,
+      new CancellationSignal(),
+      Executors.newSingleThreadExecutor(),
+      new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
+        @Override
+        public void onResult(GetCredentialResponse result) {
+          Credential credential = result.getCredential();
+          List<Account> accounts = new ArrayList<>();
 
-            if (credential instanceof PasswordCredential) {
-              PasswordCredential passwordCredential = (PasswordCredential) credential;
+          if (credential instanceof PasswordCredential) {
+            PasswordCredential passwordCredential = (PasswordCredential) credential;
 
-              String displayName = passwordCredential.getId();
-              String avatarUrl = "https://example.com/avatar.png";
+            String displayName = passwordCredential.getId();
+            String avatarUrl = "https://example.com/avatar.png";
 
-              accounts.add(new Account(displayName, passwordCredential.getId(), avatarUrl));
-            }
-
-            callback.onResult(accounts);
+            accounts.add(new Account(displayName, passwordCredential.getId(), avatarUrl));
           }
 
-          @Override
-          public void onError(GetCredentialException e) {
-            callback.onError(e);
-          }
-        });
+          callback.onResult(accounts);
+        }
+
+        @Override
+        public void onError(GetCredentialException e) {
+          callback.onError(e);
+        }
+      }
+    );
   }
 
   public void setAccountListener(AccountListener accountListener) {
