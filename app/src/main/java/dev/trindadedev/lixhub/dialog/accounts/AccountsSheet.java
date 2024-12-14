@@ -46,7 +46,7 @@ public class AccountsSheet extends BottomSheetDialog {
     accountsList = accountsLayout.findViewById(R.id.accounts_list);
     accountsList.setLayoutManager(new LinearLayoutManager(context));
 
-    accountsAdapter = new AccountsAdapter(getDefaultAccounts());
+    accountsAdapter = new AccountsAdapter();
     accountsList.setAdapter(accountsAdapter);
 
     setContentView(accountsLayout);
@@ -55,7 +55,7 @@ public class AccountsSheet extends BottomSheetDialog {
         new CredentialManagerCallback<List<Account>, GetCredentialException>() {
           @Override
           public void onResult(List<Account> result) {
-            accountsAdapter.updateAccounts(result);
+            accountsAdapter.submitList(result);
           }
 
           @Override
