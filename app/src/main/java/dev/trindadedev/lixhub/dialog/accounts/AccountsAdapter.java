@@ -76,6 +76,7 @@ public class AccountsAdapter
 
   public void updateAccounts(List<Account> accountList) {
     this.accountList = accountList;
+    notifyDataSetChanged();
   }
 
   public void setAccountListener(AccountListener accountListener) {
