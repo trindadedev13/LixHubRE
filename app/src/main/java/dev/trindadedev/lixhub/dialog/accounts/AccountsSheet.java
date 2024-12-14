@@ -67,7 +67,7 @@ public class AccountsSheet extends BottomSheetDialog {
         accountsAdapter.submitList(getDefaultAccounts());
       }
     });
-    }
+    });
   }
 
   private void initCredentialManager() {
